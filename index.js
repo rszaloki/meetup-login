@@ -3,15 +3,15 @@ const passport = require('passport');
 const MeetupStrategy = require('passport-meetup-oauth2').Strategy;
 const axios = require('axios');
 
-const MEETUP_KEY = 'dpl7nvtfqgmtqfmcoga1l7rhu7';
-const MEETUP_SECRET = 'sk17ec22psrp05ufkro3skghtl';
-const MEETUP_API_KEY = '86634792c1fd4d4f4ff272c7b390';
+const MEETUP_KEY = process.env.MEETUP_KEY || 'dpl7nvtfqgmtqfmcoga1l7rhu7';
+const MEETUP_SECRET = process.env.MEETUP_SECRET || 'sk17ec22psrp05ufkro3skghtl';
+const MEETUP_CALLBACK = process.env.MEETUP_CALLBACK || 'http://localhost:3000/auth/meetup/callback';
 const NEWTECH_GROUP_ID = 408089;
 
 passport.use(new MeetupStrategy({
       clientID: MEETUP_KEY,
       clientSecret: MEETUP_SECRET,
-      callbackURL: 'http://localhost:3000/auth/meetup/callback',
+      callbackURL: MEETUP_CALLBACK,
       scope: 'profile_edit',
     },
     function(accessToken, refreshToken, profile, done) {
